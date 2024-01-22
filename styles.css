@@ -18,7 +18,7 @@ button[class*="btn"] {border: 0;}
 p {
     text-align: center;
     font-size: 30px;
-    font-width: bold;
+    font-weight: bold;
 }
 
 .actions {
@@ -56,15 +56,15 @@ p {
     height: calc(140px / 2 * 3);
     width: 140px;
     border-radius: 10px;
-    background-color: white;
+    /*background-color: white;*/
     position: relative;
     transform-style: preserve-3d;
     transition: all 0.25s ease-in-out;
 }
 
 .front-image {
-    width: 60px;
-    height: 60px;
+    width: 140px;
+    height: 210px;
 }
 
 .card.flipped {
@@ -73,7 +73,7 @@ p {
 
 .front,
 .back {
-    backface-visibility: hidden;
+    /*backface-visibility: hidden;*/
     position: absolute;
     top: 0;
     left: 0;
@@ -81,7 +81,7 @@ p {
     width: 100%;
 }
 
-.card . front {
+.card .front {
     display: flex;
     justify-content: center;
     align-items: center;
