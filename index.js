@@ -1,10 +1,10 @@
-const gridContainer =document.querySelector('.grid-container')
+const gridContainer = document.querySelector('.grid-container')
 let cards = []
 let firstCard, secondCard
 let lockBoard = false
 let score = 0
+let idToNameMapping = {};
 
-document.querySelector('.score').textContent = score
 
 fetch('../data/data.json').then((result) => result.json())
     .then((cardData) => {
@@ -27,6 +27,11 @@ function shuffleCards(  ) {
   }
 }
 
+
+function generateUniqueId() {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 function generateCards() {
   for ( let card of cards ) {
     const cardElement = generateCard(card)
@@ -36,9 +41,12 @@ function generateCards() {
 }
 
 function generateCard (card) {
+  const uniqueId = generateUniqueId();
+  idToNameMapping[uniqueId] = card.name;
   const cardElement = document.createElement('div')
   cardElement.classList.add('card')
-  cardElement.setAttribute('data-name', card.name)
+  cardElement.setAttribute('data-id', uniqueId);
+
   cardElement.innerHTML = `
       <div class='front'>
         <img class='front-image' src=${card.image} alt='card'>
@@ -68,7 +76,10 @@ function flipCard() {
 }
 
 function checkForMatch(  ) {
-  let isMatch = firstCard.dataset.name === secondCard.dataset.name
+  const firstCardName = idToNameMapping[firstCard.getAttribute('data-id')];
+  const secondCardName = idToNameMapping[secondCard.getAttribute('data-id')];
+
+  let isMatch = firstCardName === secondCardName;
 
   isMatch ? disableCards() : unflipCards()
 }
